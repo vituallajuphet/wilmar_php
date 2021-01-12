@@ -1,0 +1,9 @@
+#login{
+    max-width: 490px;
+    width: 100%;
+    margin: 50px auto 100px;
+    background-color: #5b7179;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
