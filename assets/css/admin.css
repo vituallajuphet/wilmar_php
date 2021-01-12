@@ -1,0 +1,21 @@
+.header_cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #278871;
+}
+
+.header_cont a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.header_cont .header{
+    font-size: 21px;
+    color: #fff;
+}
+.logout:hover{
+    text-decoration: none; 
+    font-weight: bold;
+}

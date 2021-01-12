@@ -19,7 +19,7 @@
             
         }
 
-        public function validate_uri (){
+        public function validate_uri ($thepath = ""){
 
             $uri = $_SERVER["REQUEST_URI"];
             $uri_path = explode("/", $uri);
@@ -35,6 +35,10 @@
                         $res = true;
                     }
                 }
+            }
+            
+            if($thepath == "logout") {
+                $res = true; 
             }
 
             return $res;

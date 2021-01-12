@@ -3,17 +3,16 @@
     class Session{
         
         public function __construct(){
-
+            session_start();
         }
 
         public function set_userdata($data= array()){
-            session_start();
-            $_SESSION["userdata"] = $data;
+            if(!empty($data)){
+                $_SESSION["userdata"] = $data;
+            }
         }
 
         public function get_userdata($specified = ""){
-            session_start();
-
             if(!empty($_SESSION["userdata"])){
                 if(!empty($specified)){
                     return $_SESSION["userdata"][$specified];
@@ -27,7 +26,6 @@
         }   
 
         public function unset_session() {
-            session_start();
             if(!empty($_SESSION["userdata"])){
                unset ($_SESSION["userdata"]);
             }

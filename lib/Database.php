@@ -1,20 +1,25 @@
 <?php
   
-    class Database{
-       
-        private $dbname     = NULL;
-        private $username   = NULL;
-        private $password   = NULL;
-        private $host       = NULL;
-        private $connection = NULL;
+  
+  class Database{
+      
+      private $dbname     = NULL;
+      private $username   = NULL;
+      private $password   = NULL;
+      private $host       = NULL;
+      private $connection = NULL;
+      private $dbconfig     = NULL;
+      
+      public function __construct(){
+          
+            require ("lib/config.php");   
+            $this->dbconfig = $config["database"];
 
-        public function __construct($dbname, $username, $password, $host){
-            parent::__construct();
+            $this->dbname   = $this->dbconfig["dbname"];
+            $this->username = $this->dbconfig["username"];
+            $this->password = $this->dbconfig["password"];
+            $this->host     = $this->dbconfig["host"];;
 
-            $this->dbname   = $dbname;
-            $this->username = $username;
-            $this->password = $password;
-            $this->host     = $host;
 
             $this->connection = new mysqli($this->host , $this->username , $this->password, $this->dbname);
         }
