@@ -30,6 +30,7 @@
 
         public function dashboard(){
             $data["title"] ="Dashboard";
+            $data["user_info"] = $this->session->get_userdata("firstname") . " ". $this->session->get_userdata("lastname") ; 
             $this->pageLoader->load_page("dashboard", $data);
         }
 
@@ -115,6 +116,21 @@
             echo json_encode($response);
         }
 
+        public function api_get_userinfo(){
+
+            $response = ["status" => "error", "data"=> [], "message" => "something wrong!"];
+
+            if(!empty($_GET["user_id"])){
+
+                $res = $this->usermodel->get_all_users($_GET["user_id"]);
+                if($res) {
+                    $response = ["status" => "success", "data"=> $res, "message" => "success"]; 
+                }
+
+            }
+            echo json_encode($response);
+
+        }
         // end api 
 
         // dont modify this method!

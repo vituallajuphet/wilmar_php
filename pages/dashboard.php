@@ -12,7 +12,7 @@
         <div class="d-flex justify-content-between mb-5 align-items-center">
             <h2 class="mb-3">List of Users</h2>
             <div>
-                <button class="btn btn-success btn-add_user">Add User</button>
+                <button class="btn btn-primary btn-add_user">Add User</button>
             </div>
         </div>
 

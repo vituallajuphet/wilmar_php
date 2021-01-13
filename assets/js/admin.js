@@ -85,8 +85,67 @@ $(document).ready(function(){
         }
     })
 
+
+    // edit submit
+
+    $("#form_edit_user").submit(function(e){
+        e.preventDefault()
+
+        const password = $("#txtEditPassword").val();
+        const username = $("#txtEditUsername").val();
+        const checkPass = check_password(password);
+
+        if(checkPass != "ok"){
+            $("#alert_error_add").show().html(checkPass);
+        }
+        else if(username.length < 5){
+            $("#alert_success_add").hide()
+            $("#alert_error_add").show().html("Username must at least 5 letters");
+        }
+        else{
+            $.get(`${base_url}api_get_all_user`, function(res){
+
+                const result = JSON.parse(res);
+                if(result.status == "success"){
+                   const is_exist =  result.data.find(dta => dta.username.toLowerCase() == username.toLowerCase());
+                
+                   if(is_exist!= undefined){
+                        $("#alert_error_add").show().html("Username is already used!");
+                        $("#alert_success_add").hide()
+                        return;
+                   }
+                }
+                const con = confirm("Are you sure to save this user?");
+                if(con){
+
+                    const fdata = deserialize($('#form_add_user').serializeArray());
+                    
+                    $.post(`${base_url}api_save_user`, fdata , function (res){
+                        const result = JSON.parse(res);
+                        if(result.status == "success"){
+                            $("#alert_success_add").show().html(result.message);
+                            $("#alert_error_add").hide();
+                            $("#form_add_user input, #form_add_user select").val("");
+                            setTimeout(() => {
+                                $("#add_modal").modal("hide")
+                            }, 1000);
+                            generate_table()
+                        }
+                    })
+                }      
+            })
+           
+        }
+    })
+
     $(document).on("click", ".btn_edit", function(){
         const id = $(this).data("id");
+
+        $.get(`${base_url}api_get_userinfo?user_id=${id}`, function(res){
+            const result = JSON.parse(res);
+            console.log(result)
+
+        })
     })
 
     $(document).on("click", ".btn_delete", function(){
