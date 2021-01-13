@@ -19,7 +19,7 @@
             $res = $this->select($sql);
 
             if(!empty($res)){
-                if(password_verify($password , $res ["password"] )){
+                if(password_verify($password , $res[0]["password"] )){
                     $response = $res;
                 }
             }
@@ -27,18 +27,42 @@
             return $response;
         }
 
-        public function get_all_users(){
+        public function get_all_users($user_id = ""){
 
             $response = [];
 
-            $sql = "SELECT * FROM tbl_users;";
+            $where = $user_id != "" ? "WHERE user_id != $user_id" : "";
+
+            $sql = "SELECT * FROM tbl_users $where;";
             $res = $this->select($sql);
 
             return $res;
 
         }
 
+        public function save_user($data){
 
+            $response = [];
+
+            $password = password_hash($data["password"], PASSWORD_DEFAULT);
+
+            $values =  "null, '".$data["username"]."', '".$password."', '".ucfirst($data['firstname'])."',  '".ucfirst($data['lastname'])."', ".$data['age'].", '".$data['gender']."', 1, '".date("Y-m-d")."'";
+
+            $sql = "INSERT INTO tbl_users VALUES ($values) ;";
+            $res = $this->executeQuery($sql);
+
+            return $res;
+
+        }
+
+        public function delete_user($user_id){
+
+            $sql = "DELETE FROM tbl_users WHERE user_id = $user_id ;";
+            $res = $this->executeQuery($sql);
+
+            return $res;
+
+        }
 
         private function select($query){
             $res = $this->con->query($query);
@@ -52,6 +76,11 @@
             }
             
             return $data;
+        }
+
+        private function executeQuery($query){
+            $res = $this->con->query($query);
+            return $res;
         }
     }
 ?>

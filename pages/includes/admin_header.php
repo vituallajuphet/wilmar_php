@@ -14,7 +14,12 @@
                     <a href="">User Dashboard</a>
                 </div>
                 <div class="logout">
-                    <a href="<?=$base_url?>logout">Logout</a>
+                    <div class="d-flex justify-content-end align-items-center">
+                        <div class="mr-5 text-white font-weight-bold">
+                            <span class="user_info">Juphet Vitualla</span>
+                        </div>
+                        <a href="<?=$base_url?>logout">Logout</a>
+                    </div>
                 </div>
             </div>
         </header>

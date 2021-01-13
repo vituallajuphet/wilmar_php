@@ -15,6 +15,9 @@
                 <button class="btn btn-success btn-add_user">Add User</button>
             </div>
         </div>
+
+        <div style="display:none;" class="alert alert-success" id="alert_success_div" role="alert"></div>
+
         <table class="table table-striped" id="user_table">
             <thead>
                 <tr>

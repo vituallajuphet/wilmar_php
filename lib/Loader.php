@@ -23,7 +23,7 @@
 
             $uri = $_SERVER["REQUEST_URI"];
             $uri_path = explode("/", $uri);
-            $pagename = $uri_path[2];
+            $pagename = $thepath;
 
             $files = scandir("pages/");
 

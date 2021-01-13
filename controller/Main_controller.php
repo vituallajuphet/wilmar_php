@@ -37,7 +37,7 @@
             $this->pageLoader->load_page("404");
         }
 
-        // api routes
+        // start api methods
 
         public function api_process_login(){
             
@@ -51,7 +51,7 @@
 
                 if(!empty($res)){
                     // save userdata to session
-                    $this->session->set_userdata($res);
+                    $this->session->set_userdata($res[0]);
                     $response = ["status" => "success", "message" => "Logged Successfully!"];
                 }
             }
@@ -64,6 +64,20 @@
             
             $response = ["status" => "error", "data" => []];
 
+            $user_id = $this->session->get_userdata("user_id");
+
+            $res = $this->usermodel->get_all_users($user_id);
+
+            $response = ["status" => "success", "data" => $res];
+
+            echo json_encode($response);
+
+        }
+
+        public function api_get_all_user(){
+            
+            $response = ["status" => "error", "data" => []];
+
             $res = $this->usermodel->get_all_users();
 
             $response = ["status" => "success", "data" => $res];
@@ -71,6 +85,37 @@
             echo json_encode($response);
 
         }
+
+        public function api_save_user(){
+            
+            $response = ["status" => "error", "message" => "something wrong!"];
+
+            if(!empty($_POST)){
+
+                $res = $this->usermodel->save_user($_POST);
+                if($res) {
+                    $response = ["status" => "success", "message" => "Saved successfully!"]; 
+                }
+
+            }
+            echo json_encode($response);
+        }
+
+        public function api_delete_user(){
+            $response = ["status" => "error", "message" => "something wrong!"];
+
+            if(!empty($_POST["user_id"])){
+
+                $res = $this->usermodel->delete_user($_POST["user_id"]);
+                if($res) {
+                    $response = ["status" => "success", "message" => "Saved successfully!"]; 
+                }
+
+            }
+            echo json_encode($response);
+        }
+
+        // end api 
 
         // dont modify this method!
         private function run_routing($page, $params = []){
@@ -84,7 +129,6 @@
 
             if(!is_ajax()){
                 $page_exist = $this->pageLoader->validate_uri($pathname);
-
                 if(!$page_exist){
                     $pathname = "show_404";
                 }
