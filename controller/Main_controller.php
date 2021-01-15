@@ -64,9 +64,7 @@
         public function api_getdata_table(){
             
             $response = ["status" => "error", "data" => []];
-
             $user_id = $this->session->get_userdata("user_id");
-
             $res = $this->usermodel->get_all_users($user_id);
 
             $response = ["status" => "success", "data" => $res];
@@ -120,11 +118,28 @@
 
             $response = ["status" => "error", "data"=> [], "message" => "something wrong!"];
 
-            if(!empty($_GET["user_id"])){
+            $user_id = get_last_segment();
 
-                $res = $this->usermodel->get_all_users($_GET["user_id"]);
+            if(!empty($user_id)){
+
+                $res = $this->usermodel->get_one_user($user_id);
                 if($res) {
-                    $response = ["status" => "success", "data"=> $res, "message" => "success"]; 
+                    $response = ["status" => "success", "data" => $res[0]]; 
+                }
+
+            }
+            echo json_encode($response);
+        }
+
+        public function api_update_user(){
+
+            $response = ["status" => "error", "message" => "something wrong!"];
+            
+            if(!empty($_POST)){
+
+                $res = $this->usermodel->update_user($_POST);
+                if($res) {
+                    $response = ["status" => "success", "message" => "Updated successfully!"]; 
                 }
 
             }

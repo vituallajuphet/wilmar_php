@@ -93,41 +93,45 @@ $(document).ready(function(){
 
         const password = $("#txtEditPassword").val();
         const username = $("#txtEditUsername").val();
+        const u_id = $("#fk_user_id").val()
+    
         const checkPass = check_password(password);
 
         if(checkPass != "ok"){
-            $("#alert_error_add").show().html(checkPass);
+            $("#alert_error_edit").show().html(checkPass);
         }
         else if(username.length < 5){
-            $("#alert_success_add").hide()
-            $("#alert_error_add").show().html("Username must at least 5 letters");
+            $("#alert_success_edit").hide()
+            $("#alert_error_edit").show().html("Username must at least 5 letters");
         }
         else{
             $.get(`${base_url}api_get_all_user`, function(res){
 
                 const result = JSON.parse(res);
                 if(result.status == "success"){
-                   const is_exist =  result.data.find(dta => dta.username.toLowerCase() == username.toLowerCase());
-                
-                   if(is_exist!= undefined){
-                        $("#alert_error_add").show().html("Username is already used!");
-                        $("#alert_success_add").hide()
+                    
+                   const is_exist =  result.data.find(dta => dta.username.toLowerCase() == username.toLowerCase() && dta.user_id !=  u_id);
+                    
+                   if(is_exist != undefined){
+                        $("#alert_error_edit").show().html("Username is already used!");
+                        $("#alert_success_edit").hide()
                         return;
                    }
                 }
-                const con = confirm("Are you sure to save this user?");
+                const con = confirm("Are you sure to update this user?");
                 if(con){
 
-                    const fdata = deserialize($('#form_add_user').serializeArray());
+                    const fdata = deserialize($('#form_edit_user').serializeArray());
                     
-                    $.post(`${base_url}api_save_user`, fdata , function (res){
+                    $.post(`${base_url}api_update_user`, fdata , function (res){
                         const result = JSON.parse(res);
                         if(result.status == "success"){
-                            $("#alert_success_add").show().html(result.message);
-                            $("#alert_error_add").hide();
-                            $("#form_add_user input, #form_add_user select").val("");
+                            $("#alert_success_edit").show().html(result.message);
+                            $("#alert_error_edit").hide();
+                            $("#form_edit_user input, #form_edit_user select").val("");
+                            
                             setTimeout(() => {
-                                $("#add_modal").modal("hide")
+                                $("#edit_modal").modal("hide")
                             }, 1000);
                             generate_table()
                         }
@@ -141,9 +145,18 @@ $(document).ready(function(){
     $(document).on("click", ".btn_edit", function(){
         const id = $(this).data("id");
 
-        $.get(`${base_url}api_get_userinfo?user_id=${id}`, function(res){
+        $.get(`${base_url}api_get_userinfo/${id}`, function(res){
             const result = JSON.parse(res);
-            console.log(result)
+            if(result.status == "success"){
+                $("#form_edit_user input[name='firstname']").val(result.data.firstname)
+                $("#form_edit_user input[name='lastname']").val(result.data.lastname)
+                $("#form_edit_user input[name='age']").val(result.data.age)
+                $("#form_edit_user #gender").val(result.data.gender)
+                $("#form_edit_user input[name='username']").val(result.data.username)
+                $("#user_hidden").val(result.data.username)
+                $("#fk_user_id").val(result.data.user_id)
+                $("#edit_modal").modal()
+            }
 
         })
     })
@@ -174,14 +187,11 @@ $(document).ready(function(){
     })
 
     function deserialize (arr){
-
         let res = {}
-        
         arr.map(dta => {
             res[dta.name] = dta.value;
         })
         return res;
-
     }
 
     function check_password(pass){

@@ -11,7 +11,7 @@
         <header>
             <div class="header_cont">
                 <div class="header">
-                    <a href="">User Dashboard</a>
+                    <a href=""><span class="font-weight-bold">Wilmar</span> User Management</a>
                 </div>
                 <div class="logout">
                     <div class="d-flex justify-content-end align-items-center">

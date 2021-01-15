@@ -31,9 +31,24 @@
 
             $response = [];
 
-            $where = $user_id != "" ? "WHERE user_id != $user_id" : "";
+            $where = $user_id != "" ? " WHERE user_id != $user_id" : "";
 
             $sql = "SELECT * FROM tbl_users $where;";
+
+            $res = $this->select($sql);
+
+            return $res;
+
+        }
+
+        public function get_one_user($user_id = ""){
+
+            $response = [];
+
+            $where = $user_id != "" ? " WHERE user_id = $user_id" : "";
+
+            $sql = "SELECT * FROM tbl_users $where;";
+
             $res = $this->select($sql);
 
             return $res;
@@ -53,6 +68,17 @@
 
             return $res;
 
+        }
+
+        public function update_user($data){
+            $response = [];
+            $password = password_hash($data["password"], PASSWORD_DEFAULT);
+
+            $sql = 'UPDATE tbl_users set firstname = "'.ucfirst($data['firstname']).'", lastname = "'.ucfirst($data['lastname']).'", age = '.$data['age']. ', username = "'.$data['username'].'", password = "'. $password  .'" WHERE user_id = '.$data['fk_user_id'].';';
+
+            $res = $this->executeQuery($sql);
+
+            return $res;
         }
 
         public function delete_user($user_id){

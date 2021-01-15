@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2021 at 01:39 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.11
+-- Generation Time: Jan 15, 2021 at 03:30 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +44,10 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`user_id`, `username`, `password`, `firstname`, `lastname`, `age`, `gender`, `status`, `date_added`) VALUES
-(1, 'user', '$2y$10$pcZi9KCAigDL1L1VkYiEROKOc6BdCQYby.XkArsVXhUMT3RlcbJPi', 'opet', 'vituall', 21, 'male', 1, '2021-01-12'),
-(2, 'opets', 'sadfsadfsadfsadf', 'opetssss', 'vitalla', 33, 'male', 1, '2021-01-12'),
-(3, 'tests', '$2y$10$SXffiiobxx/KRYJwuddWkOTroCQ59g0q3HZhQWn7ABhin8gxNBJey', 'Opet2', 'Vitualla', 12, 'Male', 1, '2021-01-13');
+(1, 'users', '$2y$10$pcZi9KCAigDL1L1VkYiEROKOc6BdCQYby.XkArsVXhUMT3RlcbJPi', 'Willmarrr', 'Vanzuela', 21, 'Female', 1, '2021-01-12'),
+(2, 'opetss', '$2y$10$uMQkHZGNrCe5HrWDIaHJNOxVyHathSrTMcaRdyJDZj5rotuBdcBAi', 'John', 'Doe', 55, 'Male', 1, '2021-01-12'),
+(3, 'tests', '$2y$10$JeeVbHPwuAn3dWyOGWDq5eXGQnItwxO4FFIrUpwVXmg4Nfee9i2Ky', 'wimar2', 'Vanzuela', 44, 'Male', 1, '2021-01-13'),
+(4, 'wilmar', '$2y$10$1jeveN/oVAKdbZad6o9ixOMvrZgO7pV1SxIj7Q0bf15cR2mrb7ZiC', 'Wilmar', 'Vanziela', 22, 'Male', 1, '2021-01-15');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +67,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

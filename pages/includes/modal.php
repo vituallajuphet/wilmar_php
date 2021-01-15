@@ -64,8 +64,9 @@
 <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-label class="font-weight-bold"ledby="exampleModallabel class="font-weight-bold"" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <form action="#" id="form_edit_user">
+        <form action="#" id="form_edit_user" method="post">
             <div class="modal-header">
+            <input type="hidden" id="fk_user_id" name="fk_user_id" value="">
             <h5 class="modal-title font-weight-bold" id="exampleModallabel" class="font-weight-bold">Edit User</h5>
             <button type="button" data-dismiss="modal" aria-label class="font-weight-bold Close">
             <span aria-hidden="true">&times;</span>
@@ -98,15 +99,16 @@
                         <input type="text" required id="txtEditUsername"  name="username" class="form-control">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="font-weight-bold" for="">Password</label class="font-weight-bold">
+                        <label class="font-weight-bold" for="">New Password</label class="font-weight-bold">
                         <input id="txtEditPassword" type="password" required name="password" class="form-control">
                     </div>
                     
                 </div>
-                <div style="display:none;" class="alert alert-danger" id="alert_error_add" role="alert">
+                <div style="display:none;" class="alert alert-danger" id="alert_error_edit" role="alert">
                 </div>
-                <div style="display:none;" class="alert alert-success" id="alert_success_add" role="alert">
+                <div style="display:none;" class="alert alert-success" id="alert_success_edit" role="alert">
                 </div>
+                <input type="hidden" id="user_hidden" value="">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

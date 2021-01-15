@@ -5,7 +5,8 @@
 <!-- content -->
 <div id="login" class="pb-5">
     <div class="container">
-        <h3 class="text-center mb-4">Login Account</h3>
+        <h3 class="text-center mb-3">Wilmar User Management System</h3>
+        <h4 class="text-center mb-4">Login Account</h4>
         <form action="#" class="login_form">
             <input id="username" placeholder="Username" required type="text" class="form-control mb-3">
             <input id="password" placeholder="Password" required type="password" class="form-control mb-3">
